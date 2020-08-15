@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "types": [
+        "angular"
+      ],
+      "allowJs": true,
+      "outDir": "./dist",
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+  }
