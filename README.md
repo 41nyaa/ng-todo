@@ -1,7 +1,7 @@
 
 ## AngularJS-TypeScript-Sample
 This project is a so simple sample using AngularJS, TypeScript and webpack.
-This prject was created by the following procedure.
+This project was created by the following procedure.
 
 ```bash 
 npm init -y
