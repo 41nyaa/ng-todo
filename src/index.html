@@ -1,21 +1,13 @@
 <!doctype html>
-<html lang="en" ng-app="app">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
-  <div ng-controller="appController">
-    <form ng-submit="addTodo()">
-      <input type="text" ng-model="input"> 
-      <input type="submit" value="add"> 
-    </form>
-    <ul>
-      <li ng-repeat="todo in todos">
-        <input type="checkbox" ng-model="todo.done" />
-        <span>{{todo.task}}</span>
-      </li>
-    </ul>
+<body ng-app="app">
+  <div>
+  <todo-form />  
   </div>
+    <todo-list />
 </body>
 </html>
