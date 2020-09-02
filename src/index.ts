@@ -1,26 +1,9 @@
 import * as angular from 'angular';
+import { TodoFormComponent } from './component/todoform.component';
+import { TodoListComponent } from './component/todolist.component';
+import { TodoService } from './service/todo.service';
 
-module App {
-    interface Todo {
-        task : string;
-        done : boolean;
-    }
-    interface AppScope extends ng.IScope {
-        todos: Todo[];
-        input: string;
-        addTodo: () => void;
-    }
-
-    class AppController {
-        constructor($scope: AppScope) {
-            $scope.todos = [];
-            $scope.input = 'input...';
-            $scope.addTodo = function(){
-                console.log("addTodo!!!"+ $scope.input);
-                $scope.todos.push({task: $scope.input, done: false});
-              };
-        }
-    }
-
-    angular.module("app", []).controller("appController", ["$scope", AppController]);
-}
+angular.module('app', [])
+.service('todoService', TodoService)
+.component('todoForm', TodoFormComponent)
+.component('todoList', TodoListComponent);
