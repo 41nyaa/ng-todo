@@ -6,13 +6,31 @@ export interface Todo {
 export class TodoService{
     todos: Todo[];
 
-    constructor(){
+    constructor(private $q: ng.IQService){
         this.todos = [];
     }
 
     public addTodo(task : string) : void {
-        this.todos.push({task : task, done : false});
+        const newTodo : Todo = { task : task, done : false };
+        var deffered = this.$q.defer<string>();
 
+        var post = function() : ng.IPromise<string> {
+            fetch('http://localhost:3000/todo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newTodo),
+            }).then(response => {
+                deffered.resolve(response.text());
+            });
+            return deffered.promise;
+        }
+
+        post().then((data : string) => {
+            const todos = JSON.parse(data) as Todo[];
+            this.todos = [...todos].reverse();
+        })
     }
 
     public delTodo(index : number) : void {
@@ -21,6 +39,14 @@ export class TodoService{
     }
 
     public getTodos() : Todo[] {
-        return [...this.todos].reverse();
+        fetch("http://localhost:3000/todo")
+        .then(response => {
+            return response.text();
+        })
+        .then((data : string) =>{
+            const todos = JSON.parse(data) as Todo[];
+            this.todos = [...todos].reverse();
+        });
+        return this.todos;
     }
 }

@@ -17,9 +17,8 @@ module.exports = {
     ]
   },
   devServer: {
-//    contentBase: __dirname + '/dist/',
     port: 8080,
-    open: "Google Chrome"
+    open: "Google Chrome",
   },
   resolve: {
     extensions: [".ts", ".js"]
