@@ -5,48 +5,44 @@ export interface Todo {
 
 export class TodoService{
     todos: Todo[];
+    uri  : string;
 
     constructor(private $q: ng.IQService){
         this.todos = [];
+        this.uri   = 'http://localhost:3000/todo'; 
     }
 
-    public addTodo(task : string) : void {
-        const newTodo : Todo = { task : task, done : false };
+    public addTodo(task : string) : ng.IPromise<string> {
+        const newTodo = { task : task, done : false };
         var deffered = this.$q.defer<string>();
 
-        var post = function() : ng.IPromise<string> {
-            fetch('http://localhost:3000/todo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newTodo),
-            }).then(response => {
-                deffered.resolve(response.text());
+        fetch(this.uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTodo),
+        }).then(response => {
+            const get : ng.IPromise<string> = this.getTodos();
+            get.then(data=>{
+                deffered.resolve(data);
             });
-            return deffered.promise;
-        }
-
-        post().then((data : string) => {
-            const todos = JSON.parse(data) as Todo[];
-            this.todos = [...todos].reverse();
-        })
+ 
+        });
+        return deffered.promise;
     }
 
     public delTodo(index : number) : void {
-        const length = this.todos.length;
-        this.todos.splice(length-1-index,1);
+        //todo
     }
 
-    public getTodos() : Todo[] {
-        fetch("http://localhost:3000/todo")
+    public getTodos() : ng.IPromise<string> {
+        var deffered = this.$q.defer<string>();
+        fetch(this.uri)
         .then(response => {
-            return response.text();
+            deffered.resolve(response.text());
         })
-        .then((data : string) =>{
-            const todos = JSON.parse(data) as Todo[];
-            this.todos = [...todos].reverse();
-        });
-        return this.todos;
+        
+        return deffered.promise;
     }
 }
