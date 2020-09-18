@@ -12,5 +12,6 @@ export const TodoComponent : angular.IComponentOptions = {
         <span ng-mode="todo.task">{{todo.task}}</span>
         <button type="button" ng-click="$ctrl.delTodo($index)">del</button>
         </li>
-        </ul>`
+        </ul>
+        `
 }

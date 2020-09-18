@@ -1,9 +1,12 @@
 import * as angular from 'angular';
-//import { TodoFormComponent } from './component/todoform.component';
+import '@angular/router/angular1/angular_1_router';
+import { MenuComponent } from './component/menu.component';
 import { TodoComponent } from './component/todo.component';
 import { TodoService } from './service/todo.service';
 
-angular.module('app', [])
-.service('todoService', TodoService)
-//.component('todoForm', TodoFormComponent)
-.component('todoList', TodoComponent);
+const app = angular.module('app',['ngComponentRouter'])
+.component('menu', MenuComponent)
+.component('todo', TodoComponent)
+.service('todoService', TodoService);
+
+app.value('$routerRootComponent', 'menu');

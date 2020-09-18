@@ -1,5 +1,5 @@
 {
-  "name": "angularjs-typescript-sample",
+  "name": "ng-todo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@angular/router": "^0.2.0",
     "angular": "^1.8.0"
   },
   "devDependencies": {
